@@ -1,0 +1,119 @@
+<html>
+  <head>
+    <style>
+      textarea {
+        width: 500px;
+        height: 60px;
+        vertical-align: text-top;
+      }
+      .boxaa {
+        width: 100%;
+        height: 100%;
+        background: #35aefd;
+        opacity: 0.7;
+        top: 0;
+        position: fixed;
+        display: none;
+      }
+      .aimg {
+        position: fixed;
+        display: block;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        display: none;
+      }
+      .aimg p {
+        font-size: 50px;
+        text-align: center;
+        width: 100%;
+        color: #fff;
+        line-height: 50px;
+      }
+      .aimg img {
+        margin: 0 auto;
+        width: 200px;
+        display: block;
+      }
+      #box {
+        color: #fff;
+        font-size: 18px;
+        text-align: center;
+        width: 500px;
+        height: 80%;
+        border: 1px solid salmon;
+        background: salmon;
+        position: fixed;
+        top: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: none;
+      }
+      #box p {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <p>男嘉宾队列：<textarea class="boy"></textarea></p>
+    <p>女嘉宾队列：<textarea class="girl"></textarea></p>
+    <button id="botton">开始配对</button>
+    <div class="boxaa"></div>
+    <div class="aimg">
+      <p>配对中。。。</p>
+      <img class="img" src="./67c97e3c4326aebfe51b0e48d23ca014.gif" />
+    </div>
+    <div id="box">
+      恭喜下列佳人
+    </div>
+  </body>
+</html>
+<script>
+  const btn = document.getElementById('botton')
+  btn.addEventListener('click', function() {
+    const boyList = document
+      .getElementsByClassName('boy')[0]
+      .value.split(',')
+      .map(item => item.trim())
+
+    const girlList = document
+      .getElementsByClassName('girl')[0]
+      .value.split(',')
+      .map(item => item.trim())
+    boyList.sort(function() {
+      return 0.5 - Math.random()
+    })
+    girlList.sort(function() {
+      return 0.5 - Math.random()
+    })
+    const res = []
+    for (
+      var i = 0;
+      i <
+      (boyList.length >= girlList.length ? boyList.length : girlList.length);
+      i++
+    ) {
+      res.push([boyList[i] || '谢谢惠顾', girlList[i] || '谢谢惠顾'])
+    }
+
+    document.getElementsByClassName('boxaa')[0].style.display = 'block'
+    document.getElementsByClassName('aimg')[0].style.display = 'block'
+    setTimeout(() => {
+      document.getElementsByClassName('boxaa')[0].style.display = 'none'
+      document.getElementsByClassName('aimg')[0].style.display = 'none'
+      const box = document.getElementById('box')
+      console.log(res)
+      for (var i = 0; i < res.length; i++) {
+        var haskell = document.createElement('p')
+        haskell.innerHTML = `<span>${res[i][0]}</span><span>===></span><span>${
+          res[i][1]
+        }</span>`
+
+        box.appendChild(haskell)
+        box.style.display = 'block'
+      }
+    }, 2000)
+  })
+</script>
